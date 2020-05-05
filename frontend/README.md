@@ -1,4 +1,4 @@
-# Gin
+# Frontend
 
 ## Getting Started
 1. Go to `src/app` and run `npm install`
