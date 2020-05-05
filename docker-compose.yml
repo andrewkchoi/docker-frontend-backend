@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+      image: redis
+      restart: always
+      command: redis-server
+      ports:
+        - "6379:6379"
+
+  frontend:
+    build: ./frontend
+    environment:
+      - APP_ENV=local
+      - WEBSITE_URL=http://localhost:80
+    ports:
+      - 10004:80
+
+
+networks:
+
+    default:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+            - subnet:  172.190.1.0/24
